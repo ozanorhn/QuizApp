@@ -1,5 +1,9 @@
 body {
-    background-color: #007AFF; !important
+    background-color: #FEFAEF; !important
+    font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
 }
 
 .container {
@@ -15,4 +19,16 @@ body {
     justify-content: space-between;
     align-items: center;
     padding-top: 12px;
+}
+
+.bg-danger {
+    color: white;
+}
+
+.bg-success {
+    color: white;
+}
+
+.text-center {
+    text-align: center;
 }

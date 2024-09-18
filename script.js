@@ -1,3 +1,4 @@
+// Array von Fragen und Antworten für das Quiz
 let questions = [
     {
         "question": "Wer hat HTML erfunden?",
@@ -81,19 +82,76 @@ let questions = [
     }
 ];
 
+let rightQuestions = 0;
+
 let currentQuestion = 0;
 
-function init(){
-    document.getElementById('all-questions').innerHTML = questions.length;
+// Initialisiert das Quiz, zeigt die Anzahl der Fragen und die erste Frage an
+function init() {
+    document.getElementById('all-questions').innerHTML = questions.length; // Zeigt die Gesamtanzahl der Fragen an
+    showQuestion(); // Ruft die Funktion auf, um die aktuelle Frage anzuzeigen
+}
+
+// Zeigt die aktuelle Frage und die Antworten an
+function showQuestion() {
+
+    if (currentQuestion >= questions.length) {
+        document.getElementById(`endScreen`).style = ``;
+        document.getElementById(`questionBody`).style = `display: none;`;
+
+        document.getElementById(`amount-of-Question`).innerHTML = questions.length;
+        document.getElementById(`amount-of-right-Question`).innerHTML = rightQuestions;
+    } else {
+
+        let question = questions[currentQuestion]; // Holt die aktuelle Frage aus dem Array
+
+        // Setzt den Text der Frage und Antworten in die entsprechenden HTML-Elemente
+
+        document.getElementById('questiontext').innerHTML = question['question'];
+        document.getElementById('answer_1').innerHTML = question['answer_1'];
+        document.getElementById('answer_2').innerHTML = question['answer_2'];
+        document.getElementById('answer_3').innerHTML = question['answer_3'];
+        document.getElementById('answer_4').innerHTML = question['answer_4'];
+        document.getElementById(`question-number`).innerHTML = currentQuestion + 1;
+        
+
+    }
+}
+
+
+// Überprüft die gegebene Antwort und gibt das Ergebnis aus
+function answer(selection) {
+    let question = questions[currentQuestion]; // Holt die aktuelle Frage aus dem Array
+    let selectedQuestionNumber = selection.slice(-1); // Extrahiert die Nummer der ausgewählten Antwort (z.B. '1' aus 'answer_1')
+    let idOfRightAnswer = `answer_${question['right_answer']}`;
+
+    // Vergleicht die ausgewählte Antwortnummer mit der richtigen Antwortnummer
+    if (selectedQuestionNumber == question['right_answer']) {
+        console.log(`Richtige Antwort!!`); // Gibt im Console-Log aus, wenn die Antwort richtig ist
+        document.getElementById(selection).parentNode.classList.add('bg-success');
+        rightQuestions++;
+    } else {
+        document.getElementById(selection).parentNode.classList.add('bg-danger');
+        document.getElementById(idOfRightAnswer).parentNode.classList.add('bg-success');
+    }
+    document.getElementById(`next-button`).disabled = false;
+
+}
+
+function nextQuestion() {
+    currentQuestion++; //zbs. von 0 auf 1
+    document.getElementById(`next-button`).disabled = true;
+    resetAnswerButtons();
     showQuestion();
 }
 
-function showQuestion(){
-    let question = questions[currentQuestion];
-    
-    document.getElementById('questiontext').innerHTML = question['question'];
-    document.getElementById('answer_1').innerHTML = question['answer_1'];
-    document.getElementById('answer_2').innerHTML = question['answer_2'];
-    document.getElementById('answer_3').innerHTML = question['answer_3'];
-    document.getElementById('answer_4').innerHTML = question['answer_4'];
+function resetAnswerButtons() {
+    document.getElementById(`answer_1`).parentNode.classList.remove('bg-danger');
+    document.getElementById(`answer_1`).parentNode.classList.remove('bg-success');
+    document.getElementById(`answer_2`).parentNode.classList.remove('bg-danger');
+    document.getElementById(`answer_2`).parentNode.classList.remove('bg-success');
+    document.getElementById(`answer_3`).parentNode.classList.remove('bg-danger');
+    document.getElementById(`answer_3`).parentNode.classList.remove('bg-success');
+    document.getElementById(`answer_4`).parentNode.classList.remove('bg-danger');
+    document.getElementById(`answer_4`).parentNode.classList.remove('bg-success');
 }
