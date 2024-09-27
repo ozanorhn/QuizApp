@@ -1,9 +1,6 @@
 body {
-    background-color: #FEFAEF; !important
+    background-color: #FEFAEF !important; /* Korrigiert den Syntaxfehler */
     font-family: "Rubik", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
 }
 
 .container {
@@ -31,4 +28,18 @@ body {
 
 .text-center {
     text-align: center;
+}
+
+.button-row {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+.card {
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.05); /* Kartenanimation beim Hover */
 }
